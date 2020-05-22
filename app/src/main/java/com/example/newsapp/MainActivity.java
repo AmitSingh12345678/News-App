@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             adapter=new feedAdapter(MainActivity.this,R.layout.feeder,newsFeed);
             listView.setAdapter(adapter);
-//            for(newsEntry news:newsFeed){
-//                updateImage(news);
-//            }
-            adapter.get
+            for(newsEntry news:newsFeed){
+                updateImage(news);
+            }
+
 
         }
 
