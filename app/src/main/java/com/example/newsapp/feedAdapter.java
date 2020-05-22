@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class feedAdapter extends ArrayAdapter {
@@ -50,11 +52,9 @@ public class feedAdapter extends ArrayAdapter {
         viewHolder.newsTitle.setText(feed.getNewsTitle());
         viewHolder.newsDescription.setText(feed.getDescription());
         viewHolder.pubDate.setText(feed.getPubDate());
-        viewHolder.newsImage.setImageBitmap(feed.getImageBitmap());
+        Glide.with(parent.getContext()).load(feed.getImageURL()).into(viewHolder.newsImage);
 
         return convertView;
-
-
     }
 
     @Override
