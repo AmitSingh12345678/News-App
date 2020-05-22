@@ -62,9 +62,9 @@ public class parsingNewsFeed {
                                 feed.setDescription(textValue);
                             if("pubDate".equalsIgnoreCase(tagName))
                                 feed.setPubDate(textValue);
-                            if("image".equalsIgnoreCase(tagName)) {
+                            if("bigimage".equalsIgnoreCase(tagName)) {
                                 feed.setImageURL(textValue);
-                                feed.setImageBitmap(URLtoBitmap(textValue));
+//                                feed.setImageBitmap(URLtoBitmap(textValue));
                             }
                             }
                         break;
@@ -80,22 +80,22 @@ public class parsingNewsFeed {
         }
 
     }
-    public Bitmap URLtoBitmap(String imageURL){
-
-        Bitmap bitmap=null;
-        try{
-            if(imageURL!=null) {
-                InputStream inputStream = new java.net.URL(imageURL).openStream();
-                bitmap= BitmapFactory.decodeStream(inputStream);
-                Log.d(TAG, "setImageBitmap: image loading completed");
-            }
-            else
-                Log.d(TAG, "setImageBitmap: Image URL is null");
-        }catch (Exception e){
-            Log.d(TAG, "setImageBitmap: Error while loading images:"+e.getMessage());
-            e.printStackTrace();
-        }
-
-        return bitmap;
-    }
+//    public Bitmap URLtoBitmap(String imageURL){
+//
+//        Bitmap bitmap=null;
+//        try{
+//            if(imageURL!=null) {
+//                InputStream inputStream = new java.net.URL(imageURL).openStream();
+//                bitmap= BitmapFactory.decodeStream(inputStream);
+//                Log.d(TAG, "setImageBitmap: image loading completed");
+//            }
+//            else
+//                Log.d(TAG, "setImageBitmap: Image URL is null");
+//        }catch (Exception e){
+//            Log.d(TAG, "setImageBitmap: Error while loading images:"+e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        return bitmap;
+//    }
 }

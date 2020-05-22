@@ -2,10 +2,12 @@ package com.example.newsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ListView listView;
     private ProgressBar progressBar;
+    private feedAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<newsEntry> newsFeed) {
             super.onPostExecute(newsFeed);
             progressBar.setVisibility(View.GONE);
-            feedAdapter adapter=new feedAdapter(MainActivity.this,R.layout.feeder,newsFeed);
+            adapter=new feedAdapter(MainActivity.this,R.layout.feeder,newsFeed);
             listView.setAdapter(adapter);
+//            for(newsEntry news:newsFeed){
+//                updateImage(news);
+//            }
+            adapter.get
+
         }
 
         @Override
@@ -92,5 +100,12 @@ public class MainActivity extends AppCompatActivity {
            return null;
         }
     }
+private void updateImage(newsEntry news){
+
+       downloadingImage downloader= new downloadingImage(news);
+       downloader.execute(news.getImageURL());
+       adapter.notifyDataSetChanged();
+
+}
 
 }

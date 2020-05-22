@@ -17,6 +17,7 @@ public class feedAdapter extends ArrayAdapter {
     private static final String TAG = "adapter";
     private int resource;
     private LayoutInflater layoutInflater;
+
     private List<newsEntry> newsFeed;
 
     public feedAdapter(@NonNull Context context, int resource, @NonNull List<newsEntry>newsFeed) {
@@ -55,6 +56,13 @@ public class feedAdapter extends ArrayAdapter {
 
 
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+
+    }
+
     class viewHolder{
        final TextView newsTitle;
        final TextView newsDescription;
@@ -66,7 +74,6 @@ public class feedAdapter extends ArrayAdapter {
              newsDescription=v.findViewById((R.id.description));
              pubDate=v.findViewById(R.id.pubDate);
              newsImage=v.findViewById(R.id.image);
-
         }
     }
 }
