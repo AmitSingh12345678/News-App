@@ -1,13 +1,10 @@
 package com.example.newsapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 
@@ -23,79 +20,76 @@ public class parsingNewsFeed {
         return newsFeed;
     }
 
-    public void parse(String xmlData){
-        Boolean inEntry=false;
-        String textValue="";
-        newsEntry feed=null;
+    public void parse(String xmlData) {
+        Boolean inEntry = false;
+        String textValue = "";
+        newsEntry feed = null;
 
-        try{
+        try {
 
-            XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
-            XmlPullParser xpp=factory.newPullParser();
+            XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(new StringReader(xmlData));
 
-            int eventType=xpp.getEventType();
-            while(eventType!=XmlPullParser.END_DOCUMENT){
-                String tagName=xpp.getName();
+            int eventType = xpp.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String tagName = xpp.getName();
 
-                switch (eventType){
+                switch (eventType) {
 
                     case XmlPullParser.START_TAG:
-                        if("item".equalsIgnoreCase(tagName)){
-                            inEntry=true;
-                            feed=new newsEntry();
+                        if ("item".equalsIgnoreCase(tagName)) {
+                            inEntry = true;
+                            feed = new newsEntry();
                         }
-                    break;
+                        break;
                     case XmlPullParser.TEXT:
-                        textValue=xpp.getText();
+                        textValue = xpp.getText();
                         break;
                     case XmlPullParser.END_TAG:
-                        if(inEntry){
-                            if("item".equalsIgnoreCase(tagName)){
-                                inEntry=false;
+                        if (inEntry) {
+                            if ("item".equalsIgnoreCase(tagName)) {
+                                inEntry = false;
                                 newsFeed.add(feed);
                             }
-                            if("title".equalsIgnoreCase(tagName))
-                                feed.setNewsTitle(textValue);
-                            if("description".equalsIgnoreCase(tagName))
+                            if ("title".equalsIgnoreCase(tagName))
+                                feed.setNewsTitle(stringFormatter(textValue));
+                            if ("description".equalsIgnoreCase(tagName))
                                 feed.setDescription(textValue);
-                            if("pubDate".equalsIgnoreCase(tagName))
-                                feed.setPubDate(textValue);
-                            if("bigimage".equalsIgnoreCase(tagName)) {
+                            if ("pubDate".equalsIgnoreCase(tagName))
+                                feed.setPubDate(textValue.substring(0, textValue.length() - 9));
+                            if ("bigimage".equalsIgnoreCase(tagName))
                                 feed.setImageURL(textValue);
-//                                feed.setImageBitmap(URLtoBitmap(textValue));
+                            if ("link".equalsIgnoreCase(tagName)) {
+                                feed.setLink(textValue);
                             }
-                            }
+                        }
                         break;
                     default://nothing to do
                 }
 
-                eventType=xpp.next();
+                eventType = xpp.next();
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, "parser: Error while parsing:" + e.getMessage());
             e.printStackTrace();
         }
 
     }
-//    public Bitmap URLtoBitmap(String imageURL){
-//
-//        Bitmap bitmap=null;
-//        try{
-//            if(imageURL!=null) {
-//                InputStream inputStream = new java.net.URL(imageURL).openStream();
-//                bitmap= BitmapFactory.decodeStream(inputStream);
-//                Log.d(TAG, "setImageBitmap: image loading completed");
-//            }
-//            else
-//                Log.d(TAG, "setImageBitmap: Image URL is null");
-//        }catch (Exception e){
-//            Log.d(TAG, "setImageBitmap: Error while loading images:"+e.getMessage());
-//            e.printStackTrace();
-//        }
-//
-//        return bitmap;
-//    }
+
+    private String stringFormatter(String input) {//to remove these parts <abc...> from string
+        StringBuffer s = new StringBuffer(input);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '<') {
+                int from = i;
+                while (s.charAt(i) != '>')
+                    i++;
+                s.replace(from, i + 1, "");
+                i = from - 1;
+            }
+        }
+        return s.toString();
+    }
 }

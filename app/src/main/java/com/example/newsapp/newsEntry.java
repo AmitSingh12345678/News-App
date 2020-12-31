@@ -4,20 +4,23 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
-public class newsEntry {
+import java.io.Serializable;
+
+public class newsEntry implements Serializable {
+    public static final long serialVersionUID=1L;
 
     private String newsTitle;
     private String pubDate;
     private String description;
     private String imageURL;
-    private Bitmap imageBitmap;
+    private String link;
 
-    public Bitmap getImageBitmap() {
-        return imageBitmap;
+    public String getLink() {
+        return link;
     }
 
-    public void setImageBitmap(Bitmap imageBitmap) {
-        this.imageBitmap = imageBitmap;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getNewsTitle() {
@@ -55,9 +58,9 @@ public class newsEntry {
     @NonNull
     @Override
     public String toString() {
-        return "Title:"+newsTitle+
-                "\npublished Date:"+pubDate+
-                "\nDescription:"+description+
-                "\nImage URL:"+imageURL;
+        return "Title:" + newsTitle +
+                "\npublished Date:" + pubDate +
+                "\nDescription:" + description +
+                "\nImage URL:" + imageURL;
     }
 }
