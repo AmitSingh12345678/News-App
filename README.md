@@ -1,5 +1,5 @@
 # News-App
 
-<img src="https://github.com/AmitSingh12345678/Covid-19-Tracker/blob/master/Screenshots/Home_Screen.png" height="500">
-<img src="https://github.com/AmitSingh12345678/Covid-19-Tracker/blob/master/Screenshots/Country_Wise_Cases.png" height="500">
-<img src="https://github.com/AmitSingh12345678/Covid-19-Tracker/blob/master/Screenshots/State_Wise_Cases.png" height="500">
+<img src="https://github.com/AmitSingh12345678/News-App/blob/master/Screenshots/Home_Screen.png" height="700">
+<img src="https://github.com/AmitSingh12345678/News-App/blob/master/Screenshots/Different_Categories.png" height="700">
+<img src="https://github.com/AmitSingh12345678/News-App/blob/master/Screenshots/Technology.png" height="700">
